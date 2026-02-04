@@ -1,0 +1,11 @@
+[package]
+name = "anathema_breaker_core"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+
+[lib]
+path = "src/lib.rs"
+
+[features]
+default = []
