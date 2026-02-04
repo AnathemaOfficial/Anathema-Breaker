@@ -1,0 +1,19 @@
+[package]
+name = "anathema_breaker_core"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+
+[lib]
+path = "src/lib.rs"
+
+[features]
+default = []
+integration-example = []
+
+[[example]]
+name = "minimal_integration"
+required-features = ["integration-example"]
+
+[dev-dependencies]
+trybuild = "1.0"
