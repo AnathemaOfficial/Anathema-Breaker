@@ -1,8 +1,9 @@
 //! Canonical resolve_action — PoM budget enforcement.
 //! Impossibility by structure, not by decision.
 
-use super::types::{Budget, Effect, Impossibility, Invariants};
+use super::progression_rule::progression_cost;
 use super::topology::{Action, EP, IZ, RZ};
+use super::types::{Budget, Effect, Impossibility, Invariants};
 
 /// Resolve action through RZ→EP→IZ topology.
 ///
@@ -11,9 +12,11 @@ use super::topology::{Action, EP, IZ, RZ};
 ///
 /// # Invariants
 /// - Capacity must cover magnitude (thermodynamic accounting)
-/// - Progression must be non-zero (finite state transitions)
+/// - Progression must cover cost (finite state transitions)
 /// - Topology progression is enforced by typestate
-#[allow(unused_variables)] // inv reserved for Phase 7 expansion
+///
+/// # Panics
+/// Panics in Phase 6.1 if `progression_cost` stub is called at runtime.
 pub fn resolve_action(
     action: Action<RZ>,
     budget: &mut Budget,
@@ -31,12 +34,14 @@ pub fn resolve_action(
     // ═══════════════════════════════════════════════════════════
     let engaged: Action<EP> = action.engage();
 
-    // Progression rule: finite transitions remaining
-    // CANON: progression_rule(inv.flow, inv.entropy) — Phase 7 expansion
-    if budget.progression.0 == 0 {
+    // CANON: progression_rule(inv.flow, inv.entropy)
+    // Stub placeholder — actual rule extracted from specs/ in Phase 7
+    let cost = progression_cost(inv).0;
+
+    if budget.progression.0 < cost {
         return Err(Impossibility::ProgressionExhausted);
     }
-    budget.progression.0 -= 1;
+    budget.progression.0 -= cost;
 
     // ═══════════════════════════════════════════════════════════
     // IZ: Effect produced — terminal state
