@@ -5,6 +5,7 @@
 
 pub mod canon;
 pub mod types;
+pub mod pom;
 pub(crate) mod api;
 
 // ✅ PUBLIC SURFACE = CANON LEXICON ONLY

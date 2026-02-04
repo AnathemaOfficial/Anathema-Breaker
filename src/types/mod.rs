@@ -1,6 +1,6 @@
 mod progression;
 mod capacity;
-mod envelopes;
+pub(crate) mod envelopes;
 mod topology;
 mod cluster;
 
