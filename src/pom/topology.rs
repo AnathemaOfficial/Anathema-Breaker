@@ -17,12 +17,33 @@ pub struct SEALED;
 
 /// Action envelope with typestate progression.
 /// State `S` determines available transitions.
+/// Fields are private — no external mutation allowed.
 pub struct Action<S, T = SEALED> {
-    pub domain: Domain,
-    pub magnitude: Magnitude,
+    domain: Domain,
+    magnitude: Magnitude,
     _state: core::marker::PhantomData<(S, T)>,
 }
 
+// ═══════════════════════════════════════════════════════════════
+// Getters — immutable access only
+// ═══════════════════════════════════════════════════════════════
+impl<S, T> Action<S, T> {
+    /// Domain identifier (read-only).
+    #[inline]
+    pub fn domain(&self) -> Domain {
+        self.domain
+    }
+
+    /// Magnitude value (read-only).
+    #[inline]
+    pub fn magnitude(&self) -> Magnitude {
+        self.magnitude
+    }
+}
+
+// ═══════════════════════════════════════════════════════════════
+// RZ: Reception Zone — entry point
+// ═══════════════════════════════════════════════════════════════
 impl Action<RZ> {
     /// Create action in Reception Zone.
     pub fn new(domain: Domain, magnitude: Magnitude) -> Self {
@@ -43,6 +64,9 @@ impl Action<RZ> {
     }
 }
 
+// ═══════════════════════════════════════════════════════════════
+// EP: Engagement Point — irreversible
+// ═══════════════════════════════════════════════════════════════
 impl Action<EP> {
     /// EP → IZ: produce effect (terminal).
     pub fn into_iz(self) -> Action<IZ> {
@@ -55,3 +79,5 @@ impl Action<EP> {
 }
 
 // No impl for Action<IZ> — terminal state, no further transitions.
+// No impl for Action<EP>::back_to_rz() — path absence enforced.
+// No impl for Action<RZ>::into_iz() — path absence enforced.

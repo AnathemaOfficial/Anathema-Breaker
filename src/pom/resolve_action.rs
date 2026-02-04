@@ -1,9 +1,8 @@
 //! Canonical resolve_action — PoM budget enforcement.
 //! Impossibility by structure, not by decision.
 
-use super::progression_rule::progression_cost;
-use super::types::{Budget, Effect, Impossibility, Invariants};
 use super::topology::{Action, EP, IZ, RZ};
+use super::types::{Budget, Effect, Impossibility, Invariants};
 
 /// Resolve action through RZ→EP→IZ topology.
 ///
@@ -12,11 +11,9 @@ use super::topology::{Action, EP, IZ, RZ};
 ///
 /// # Invariants
 /// - Capacity must cover magnitude (thermodynamic accounting)
-/// - Progression must cover cost (finite state transitions)
+/// - Progression must be non-zero (finite state transitions)
 /// - Topology progression is enforced by typestate
-///
-/// # Panics
-/// Panics in Phase 6.1 if `progression_cost` stub is called during execution.
+#[allow(unused_variables)] // inv reserved for Phase 7 expansion
 pub fn resolve_action(
     action: Action<RZ>,
     budget: &mut Budget,
@@ -25,7 +22,7 @@ pub fn resolve_action(
     // ═══════════════════════════════════════════════════════════
     // RZ: Pre-engagement verification (reversible)
     // ═══════════════════════════════════════════════════════════
-    if budget.capacity.0 < action.magnitude.0 {
+    if budget.capacity.0 < action.magnitude().0 {
         return Err(Impossibility::CapacityInsufficient);
     }
 
@@ -34,17 +31,11 @@ pub fn resolve_action(
     // ═══════════════════════════════════════════════════════════
     let engaged: Action<EP> = action.engage();
 
-    // Capture magnitude before EP→IZ consumes the action.
-    let magnitude = engaged.magnitude;
-
-    // CANON: progression_rule(inv.flow, inv.entropy)
-    // Stub placeholder — actual rule must be extracted verbatim from sealed specs/ in Phase 7.
-    let cost = progression_cost(inv).0;
-
-    if budget.progression.0 < cost {
+    // CANON: progression_rule(inv.flow, inv.entropy) — Phase 7 expansion
+    if budget.progression.0 == 0 {
         return Err(Impossibility::ProgressionExhausted);
     }
-    budget.progression.0 -= cost;
+    budget.progression.0 -= 1;
 
     // ═══════════════════════════════════════════════════════════
     // IZ: Effect produced — terminal state
@@ -52,6 +43,6 @@ pub fn resolve_action(
     let _iz: Action<IZ> = engaged.into_iz();
 
     Ok(Effect {
-        magnitude_applied: magnitude,
+        magnitude_applied: engaged.magnitude(),
     })
 }

@@ -1,9 +1,8 @@
 //! PoM-Core — Proof of Math implementation
-//! Phase 6.1: resolve_action (RZ→EP→IZ) + Budget enforcement + progression_rule stub
+//! Phase 6.2: resolve_action (RZ→EP→IZ) + Budget enforcement
 
 pub mod types;
 pub mod topology;
-pub mod progression_rule;
 pub mod resolve_action;
 
 #[cfg(test)]

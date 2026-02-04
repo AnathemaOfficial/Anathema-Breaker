@@ -1,15 +1,11 @@
-//! Phase 6.1 tests — negative cases only.
-//! Tests that trigger progression_cost stub are disabled until Phase 7.
-//!
-//! ⚠️ resolve_action panics at runtime if it reaches progression_cost.
-//! Only RZ-phase impossibilities (CapacityInsufficient) can be tested.
+//! Phase 6.2 tests — negative cases + determinism property.
+//! No positive "happy path" tests — impossibility is the specification.
 
 use super::resolve_action::resolve_action;
 use super::topology::{Action, RZ};
 use super::types::{Budget, Capacity, Domain, Impossibility, Invariants, Magnitude, Progression};
 
 /// Capacity insufficient → CapacityInsufficient impossibility.
-/// This test is safe: rejection happens in RZ before stub is called.
 #[test]
 fn capacity_insufficient_is_impossibility() {
     let action = Action::<RZ>::new(Domain(1), Magnitude(10));
@@ -29,7 +25,59 @@ fn capacity_insufficient_is_impossibility() {
     );
 }
 
-/// Budget unchanged on RZ rejection — no engagement occurred.
+/// Progression exhausted → ProgressionExhausted impossibility.
+#[test]
+fn progression_exhausted_is_impossibility() {
+    let action = Action::<RZ>::new(Domain(1), Magnitude(10));
+    let mut budget = Budget {
+        capacity: Capacity(10),
+        progression: Progression(0),
+    };
+    let inv = Invariants {
+        r: 0,
+        flow: 0,
+        entropy: 0,
+    };
+
+    assert_eq!(
+        resolve_action(action, &mut budget, inv),
+        Err(Impossibility::ProgressionExhausted)
+    );
+}
+
+/// Determinism property: identical inputs → identical outputs.
+/// This is a structural requirement, not a positive test.
+/// FIX #2: Compare full Result, not just is_ok().
+#[test]
+fn determinism_property_preserved() {
+    let inv = Invariants {
+        r: 1,
+        flow: 2,
+        entropy: 3,
+    };
+
+    // First resolution
+    let action1 = Action::<RZ>::new(Domain(7), Magnitude(5));
+    let mut budget1 = Budget {
+        capacity: Capacity(5),
+        progression: Progression(1),
+    };
+    let out1 = resolve_action(action1, &mut budget1, inv);
+
+    // Second resolution — identical inputs
+    let action2 = Action::<RZ>::new(Domain(7), Magnitude(5));
+    let mut budget2 = Budget {
+        capacity: Capacity(5),
+        progression: Progression(1),
+    };
+    let out2 = resolve_action(action2, &mut budget2, inv);
+
+    // Structural determinism: same input → same output (full equality)
+    assert_eq!(out1, out2);
+}
+
+/// Budget mutation occurs only on successful engagement.
+/// FIX #3: Verify Err variant + both capacity and progression unchanged.
 #[test]
 fn budget_unchanged_on_capacity_impossibility() {
     let action = Action::<RZ>::new(Domain(1), Magnitude(100));
@@ -43,20 +91,12 @@ fn budget_unchanged_on_capacity_impossibility() {
         entropy: 0,
     };
 
-    let _ = resolve_action(action, &mut budget, inv);
+    let result = resolve_action(action, &mut budget, inv);
+
+    // Verify correct impossibility returned
+    assert_eq!(result, Err(Impossibility::CapacityInsufficient));
 
     // Budget unchanged — rejection in RZ, before engagement
-    assert_eq!(budget.progression.0, 5);
     assert_eq!(budget.capacity.0, 10);
+    assert_eq!(budget.progression.0, 5);
 }
-
-// ═══════════════════════════════════════════════════════════════════
-// DISABLED: Tests that would call progression_cost stub (panic)
-// Re-enable in Phase 7 when actual rule is extracted from specs/
-// ═══════════════════════════════════════════════════════════════════
-
-// #[test]
-// fn progression_exhausted_is_impossibility() { ... }
-
-// #[test]
-// fn determinism_property_preserved() { ... }
