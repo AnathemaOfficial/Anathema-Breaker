@@ -40,6 +40,12 @@ Phase 6.2 exists solely as a proof of branchability, not as a product interface.
 See: examples/minimal_integration.rs
 Tag: mn-001-p6.2-integration-20260205
 
+MN-001 Phase 6.2 — SEALED
+Commit: 07e501b
+Scope: minimal PoM integration (typestate RZ→EP→IZ + deterministic resolve_action + compile-fail invalid transitions).
+No time, no feedback, no optimization, no governance.
+Any change requires a new phase.
+
 See: `README_PHASE5.md`.
 
 
