@@ -1,4 +1,5 @@
-use crate::types::{Action, Budget, Effect, Impossibility, RZ};
+use crate::pom::topology::{Action, RZ};
+use crate::pom::types::{Budget, Effect, Impossibility};
 
 /// Resolve action through RZ→EP→IZ topology.
 ///

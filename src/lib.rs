@@ -6,7 +6,7 @@
 pub mod canon;
 pub mod types;
 pub mod pom;
-pub(crate) mod api;
+// pub(crate) mod api; // sealed phase 6.2: api not in build graph
 
 // ✅ PUBLIC SURFACE = CANON LEXICON ONLY
 pub use types::{Progression, Capacity, Action, IZ};
