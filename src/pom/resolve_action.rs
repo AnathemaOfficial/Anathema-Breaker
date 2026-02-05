@@ -37,12 +37,13 @@ pub fn resolve_action(
     }
     budget.progression.0 -= 1;
 
+    // Capture magnitude BEFORE move into IZ
+    let magnitude_applied = engaged.magnitude();
+
     // ═══════════════════════════════════════════════════════════
     // IZ: Effect produced — terminal state
     // ═══════════════════════════════════════════════════════════
     let _iz: Action<IZ> = engaged.into_iz();
 
-    Ok(Effect {
-        magnitude_applied: engaged.magnitude(),
-    })
+    Ok(Effect { magnitude_applied })
 }
