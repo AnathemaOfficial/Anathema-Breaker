@@ -9,6 +9,11 @@ path = "src/lib.rs"
 
 [features]
 default = []
+integration-example = []
+
+[[example]]
+name = "minimal_integration"
+required-features = ["integration-example"]
 
 [dev-dependencies]
-trybuild = "1.0.115"
+trybuild = "1.0"

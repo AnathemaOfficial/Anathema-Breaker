@@ -28,5 +28,7 @@ pub fn resolve_action(
     // Topology enforcement: RZ → EP → IZ (typestate path absence)
     let ep = action.engage();
     let iz = ep.into_iz();
-    Ok(iz.into_effect())
+    Ok(Effect {
+        magnitude_applied: iz.magnitude(),
+    })
 }
