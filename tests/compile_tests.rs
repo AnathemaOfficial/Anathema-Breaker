@@ -6,4 +6,5 @@ fn typestate_invalid_transitions_compile_fail() {
     let t = trybuild::TestCases::new();
     t.compile_fail("tests/ui/rz_direct_to_iz.rs");
     t.compile_fail("tests/ui/ep_back_to_rz.rs");
+    t.compile_fail("tests/trybuild/p7_no_effect_to_action.rs");
 }
