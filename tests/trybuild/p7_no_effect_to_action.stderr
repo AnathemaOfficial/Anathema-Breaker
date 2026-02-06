@@ -1,0 +1,5 @@
+error[E0599]: no method named `into_action` found for struct `Effect` in the current scope
+  --> tests/trybuild/p7_no_effect_to_action.rs:21:43
+   |
+21 |     let _action_back: Action<RZ> = effect.into_action();
+   |                                           ^^^^^^^^^^^ method not found in `Effect`
