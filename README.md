@@ -46,6 +46,8 @@ Scope: minimal PoM integration (typestate RZ→EP→IZ + deterministic resolve_a
 No time, no feedback, no optimization, no governance.
 Any change requires a new phase.
 
+Phase 7.0 sealed: Anathema-Breaker is a formally sealed software machine (AB-S).
+
 See: `README_PHASE5.md`.
 
 
