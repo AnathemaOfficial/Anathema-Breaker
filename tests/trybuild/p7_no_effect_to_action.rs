@@ -5,7 +5,7 @@
 
 use anathema_breaker_core::pom::topology::{Action, RZ};
 use anathema_breaker_core::pom::types::{Budget, Capacity, Domain, Effect, Magnitude, Progression};
-use anathema_breaker_core::pom::resolve_action;
+use anathema_breaker_core::pom::resolve_action::resolve_action;
 
 fn main() {
     // Resolve an action to produce an Effect
