@@ -78,3 +78,25 @@ fn budget_unchanged_on_capacity_impossibility() {
     assert_eq!(budget.capacity.0, 10);
     assert_eq!(budget.progression.0, 5);
 }
+
+/// Budget must remain unchanged on ProgressionExhausted.
+#[test]
+fn budget_unchanged_on_progression_exhausted() {
+    let action = Action::<RZ>::new(Domain(1), Magnitude(10));
+    let mut budget = Budget {
+        capacity: Capacity(10),
+        progression: Progression(0),
+    };
+
+    let before_capacity = budget.capacity.0;
+    let before_progression = budget.progression.0;
+
+    assert_eq!(
+        resolve_action(action, &mut budget),
+        Err(Impossibility::ProgressionExhausted)
+    );
+
+   assert_eq!(budget.capacity.0, before_capacity);
+   assert_eq!(budget.progression.0, before_progression);
+}
+

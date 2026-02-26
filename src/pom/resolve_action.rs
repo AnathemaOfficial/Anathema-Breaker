@@ -18,12 +18,14 @@ pub fn resolve_action(
     if budget.capacity.0 < action.magnitude().0 {
         return Err(Impossibility::CapacityInsufficient);
     }
-    budget.capacity.0 -= action.magnitude().0;
 
     // Progression accounting: finite state transitions
     if budget.progression.0 == 0 {
         return Err(Impossibility::ProgressionExhausted);
     }
+
+    // Commit budget only on success
+    budget.capacity.0 -= action.magnitude().0;
     budget.progression.0 -= 1;
 
     // Topology enforcement: RZ → EP → IZ (typestate path absence)
