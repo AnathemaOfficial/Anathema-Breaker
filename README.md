@@ -51,3 +51,7 @@ Phase 7.0 sealed: Anathema-Breaker is a formally sealed software machine (AB-S).
 See: `README_PHASE5.md`.
 
 
+## Verify (deterministic)
+
+```bash
+cargo test
