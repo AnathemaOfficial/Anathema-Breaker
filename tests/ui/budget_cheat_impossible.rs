@@ -1,5 +1,5 @@
 // Compile-fail test: Budget fields cannot be mutated externally.
-// SYMBIOTE falsification: "budget cheat makes impossible become possible"
+// API surface audit: "budget cheat makes impossible become possible"
 //
 // Before this fix, an integrator could do:
 //   budget.capacity.0 += 1000;
