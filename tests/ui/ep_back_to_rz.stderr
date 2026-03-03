@@ -1,5 +1,5 @@
-error[E0599]: no method named `back_to_rz` found for struct `anathema_breaker_core::pom::topology::Action<S, T>` in the current scope
+error[E0599]: no method named `back_to_rz` found for struct `Action<S, T>` in the current scope
  --> tests/ui/ep_back_to_rz.rs:9:16
   |
 9 |     let _ = ep.back_to_rz(); // ERROR: no method `back_to_rz` for Action<EP>
-  |                ^^^^^^^^^^ method not found in `anathema_breaker_core::pom::topology::Action<anathema_breaker_core::pom::topology::EP>`
+  |                ^^^^^^^^^^ method not found in `Action<anathema_breaker_core::pom::topology::EP>`

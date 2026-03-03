@@ -1,4 +1,4 @@
-error[E0599]: no method named `into_iz` found for struct `anathema_breaker_core::pom::topology::Action<anathema_breaker_core::pom::topology::RZ>` in the current scope
+error[E0599]: no method named `into_iz` found for struct `Action<anathema_breaker_core::pom::topology::RZ>` in the current scope
  --> tests/ui/rz_direct_to_iz.rs:9:15
   |
 9 |     let _ = a.into_iz(); // ERROR: no method `into_iz` for Action<RZ>

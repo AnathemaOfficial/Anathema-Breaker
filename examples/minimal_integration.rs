@@ -1,5 +1,6 @@
 //! Minimal integration example — AB branché sans altérer la loi.
 //! Demonstrates: zero semantic understanding required by AB.
+//! Budget fields are private — integrator cannot cheat the law.
 
 // ──────────────────────────────────────────────────────────────
 // Système externe fictif (ex: API, DB, payment gateway)
@@ -7,37 +8,32 @@
 
 use anathema_breaker_core::pom::resolve_action::resolve_action;
 use anathema_breaker_core::pom::topology::{Action, RZ};
-use anathema_breaker_core::pom::types::*;
+use anathema_breaker_core::pom::types::{Budget, Capacity, Domain, Magnitude, Progression};
 
 struct ExternalSystem {
-    budget_capacity: u32,
-    budget_progression: u32,
+    budget: Budget,
 }
 
 impl ExternalSystem {
     /// Branchement zéro-sémantique sur AB
     /// AB ne comprend PAS "payment" ou "DB write" — uniquement Domain + Magnitude
-    fn handle_request(&mut self, domain_id: u16, magnitude: u32) {
-        let action = Action::<RZ>::new(Domain(domain_id), Magnitude(magnitude));
-        let mut budget = Budget {
-            capacity: Capacity(self.budget_capacity),
-            progression: Progression(self.budget_progression),
-        };
-        let inv = Invariants {
-            r: 1,
-            flow: 2,
-            entropy: 3,
-        };
+    fn handle_request(&mut self, domain_id: u64, magnitude: u64) {
+        let action = Action::<RZ>::new(Domain::new(domain_id), Magnitude::new(magnitude));
 
         // ──── Pattern d'intégration canonique ────
         // OK: effet produit → exécuter logique métier
         // Err: impossibilité structurelle → SILENCE (pas de signal exploitable)
-        match resolve_action(action, &mut budget, inv) {
+        //
+        // NOTE: Budget fields are private. The integrator cannot:
+        //   - budget.capacity.0 += 1000  (compile error)
+        //   - budget.progression.0 = 99  (compile error)
+        // Only resolve_action can consume budget.
+        match resolve_action(action, &mut self.budget) {
             Ok(effect) => {
-                // Mise à jour du budget local (effet consommé)
-                self.budget_capacity = budget.capacity.0;
-                self.budget_progression = budget.progression.0;
-                self.execute_business_logic(effect.magnitude_applied.0);
+                // Read budget state via getters (immutable access only)
+                let _remaining_capacity = self.budget.capacity().value();
+                let _remaining_progression = self.budget.progression().value();
+                self.execute_business_logic(effect.magnitude_applied.value());
             }
             Err(_) => {
                 // FAIL-CLOSED ABSOLU
@@ -48,7 +44,7 @@ impl ExternalSystem {
         }
     }
 
-    fn execute_business_logic(&mut self, _magnitude: u32) {
+    fn execute_business_logic(&mut self, _magnitude: u64) {
         // Logique métier — AB n'y a jamais accès
     }
 
@@ -61,8 +57,7 @@ impl ExternalSystem {
 
 fn main() {
     let mut system = ExternalSystem {
-        budget_capacity: 100,
-        budget_progression: 10,
+        budget: Budget::new(Capacity::new(100), Progression::new(10)),
     };
 
     // Démonstration du pattern d'intégration
@@ -79,8 +74,7 @@ mod tests {
     #[test]
     fn integration_pattern_compiles_and_runs() {
         let mut system = ExternalSystem {
-            budget_capacity: 100,
-            budget_progression: 10,
+            budget: Budget::new(Capacity::new(100), Progression::new(10)),
         };
         system.handle_request(1, 50); // autorisé → exécution
         system.handle_request(1, 200); // impossibilité → silence

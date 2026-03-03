@@ -10,23 +10,24 @@ use crate::pom::types::{Budget, Effect, Impossibility};
 /// - Capacity must cover magnitude (thermodynamic accounting)
 /// - Progression must be non-zero (finite state transitions)
 /// - Topology progression is enforced by typestate
+/// - Budget fields are private — only this function consumes
 pub fn resolve_action(
     action: Action<RZ>,
     budget: &mut Budget,
 ) -> Result<Effect, Impossibility> {
-    // Capacity accounting: insufficiency ≠ exhaustion
-    if budget.capacity.0 < action.magnitude().0 {
+    // Capacity check: insufficiency → structural impossibility
+    if budget.capacity().value() < action.magnitude().value() {
         return Err(Impossibility::CapacityInsufficient);
     }
 
-    // Progression accounting: finite state transitions
-    if budget.progression.0 == 0 {
+    // Progression check: exhaustion → structural impossibility
+    if budget.progression().is_exhausted() {
         return Err(Impossibility::ProgressionExhausted);
     }
 
-    // Commit budget only on success
-    budget.capacity.0 -= action.magnitude().0;
-    budget.progression.0 -= 1;
+    // Commit budget only on success (via crate-internal API)
+    budget.consume_capacity(action.magnitude().value());
+    budget.tick_progression();
 
     // Topology enforcement: RZ → EP → IZ (typestate path absence)
     let ep = action.engage();

@@ -1,8 +1,9 @@
-/// Action envelope (Phase 4.1).
+/// Action envelope — 32-byte binary frame (Phase 4.1).
+/// Renamed from `Action` to avoid confusion with `pom::topology::Action<S>`.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub struct Action([u8; 32]);
+pub struct ActionEnvelope([u8; 32]);
 
-impl Action {
+impl ActionEnvelope {
     /// Crate-internal constructor only.
     pub(crate) const fn new(bytes: [u8; 32]) -> Self {
         Self(bytes)

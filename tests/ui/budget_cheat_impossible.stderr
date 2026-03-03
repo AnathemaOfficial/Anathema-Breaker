@@ -1,0 +1,5 @@
+error[E0616]: field `capacity` of struct `anathema_breaker_core::pom::types::Budget` is private
+  --> tests/ui/budget_cheat_impossible.rs:18:12
+   |
+18 |     budget.capacity = Capacity::new(9999);
+   |            ^^^^^^^^ private field

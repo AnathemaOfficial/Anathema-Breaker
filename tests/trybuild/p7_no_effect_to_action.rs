@@ -9,11 +9,8 @@ use anathema_breaker_core::pom::resolve_action::resolve_action;
 
 fn main() {
     // Resolve an action to produce an Effect
-    let action = Action::<RZ>::new(Domain(1), Magnitude(100));
-    let mut budget = Budget {
-        capacity: Capacity(1000),
-        progression: Progression(10),
-    };
+    let action = Action::<RZ>::new(Domain::new(1), Magnitude::new(100));
+    let mut budget = Budget::new(Capacity::new(1000), Progression::new(10));
     let effect: Effect = resolve_action(action, &mut budget).unwrap();
 
     // Attempt to convert Effect back to Action (feedback path)

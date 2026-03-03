@@ -17,20 +17,41 @@
 // • No extension hooks
 // • No configuration surface
 // • No feedback channels
+// • Budget fields are private — no external mutation
 //
 // Breaking these invariants = not AB Phase 6.2
 // ════════════════════════════════════════════════════════════════════
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub struct Capacity(pub u64);
+pub struct Capacity(u64);
+
+impl Capacity {
+    pub const fn new(raw: u64) -> Self {
+        Self(raw)
+    }
+
+    pub const fn value(self) -> u64 {
+        self.0
+    }
+}
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub struct Progression(pub u64);
+pub struct Progression(u64);
+
+impl Progression {
+    pub const fn new(raw: u64) -> Self {
+        Self(raw)
+    }
+
+    pub const fn value(self) -> u64 {
+        self.0
+    }
+}
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct Budget {
-    pub capacity: Capacity,
-    pub progression: Progression,
+    capacity: Capacity,
+    progression: Progression,
 }
 
 impl Budget {
@@ -39,5 +60,13 @@ impl Budget {
             capacity: Capacity(capacity),
             progression: Progression(progression),
         }
+    }
+
+    pub const fn capacity(&self) -> Capacity {
+        self.capacity
+    }
+
+    pub const fn progression(&self) -> Progression {
+        self.progression
     }
 }
