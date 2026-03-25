@@ -1,18 +1,19 @@
 #![no_std]
 
-// Phase 5.1: structure-only skeleton.
-// Zero behavior. Zero runtime surfaces. Lexicon-only public API.
+// Current active crate state:
+// Phase 7.0 / AB-S sealed software machine built from the Phase 6.2 PoM core.
+// Historical phase notes are kept in README files, not here.
 
 pub mod canon;
 pub mod types;
 pub mod pom;
 // pub(crate) mod api; // sealed phase 6.2: api not in build graph
 
-// ✅ PUBLIC SURFACE = CANON LEXICON ONLY
+// Public surface remains narrow and law-shaped.
 pub use types::{Progression, Capacity, ActionEnvelope, IZ};
 
 // ============================================================
-// Phase 5.2: smoke tests (unit tests — inside crate boundary)
+// Legacy lexicon smoke tests (inside crate boundary)
 // ============================================================
 #[cfg(test)]
 extern crate std;

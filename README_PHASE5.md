@@ -1,5 +1,11 @@
-# Phase 5.1 — Structure Only
+# Phase 5.1 - Structure Only
 
-This crate is a **structure-only, no_std skeleton** for Anathema-Breaker.
-It exposes **types and trait signatures only**, with **zero behavior**, **zero runtime logic**, and **no configuration surfaces**.
-This is **not an engine** and **not operational** by design; it exists solely to freeze the canonical lexicon and API shapes prior to Phase 6 PoM implementation.
+**Status:** Historical phase note
+
+This document describes the archived Phase 5.1 state of Anathema-Breaker,
+when the crate was still a structure-only `no_std` skeleton.
+
+It is preserved for traceability only.
+It does **not** describe the current active state of the repository.
+
+For the current machine description, see `README_P7.md`.
