@@ -177,4 +177,4 @@ We claim only:
 
 **Last Updated:** 2026-02-05  
 **Maintainer:** SYFCORP / Anathema Project  
-**License:** Same as Anathema-Breaker core (MIT)
+**License:** Same as Anathema-Breaker core (Apache-2.0)
