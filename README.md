@@ -1,5 +1,5 @@
 
-<img width="1024" height="1023" alt="anathema breaker" src="https://github.com/user-attachments/assets/26b877d3-01e5-44bb-8345-9f881d7fee88" />
+<img width="256" height="256" alt="SYF Core copy" src="https://github.com/user-attachments/assets/ccc294b1-2de3-412d-980c-70a10fd866d7" />
 
 # Anathema-Breaker
 
