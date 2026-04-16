@@ -1,5 +1,4 @@
-
-<img width="256" height="256" alt="SYF Core copy" src="https://github.com/user-attachments/assets/d3e162c8-427c-4045-ba7d-5a15f3184792" />
+<img width="256" height="256" alt="SYF Core copy" src="https://github.com/user-attachments/assets/beb60181-4f66-4090-97ea-80d776a9318e" />
 
 # Anathema-Breaker
 
