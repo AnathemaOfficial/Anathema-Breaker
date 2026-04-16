@@ -219,7 +219,7 @@ If you use Anathema-Breaker in research or production:
   author = {Bouchard, Sébastien},
   year = {2026},
   version = {Phase 7.0 (AB-S)},
-  organization = {SYFCORP / Anathema Project},
+  organization = {Technologies CoreXalt Inc. / Anathema Project},
   url = {https://github.com/AnathemaOfficial/Anathema-Breaker}
 }
 ```
