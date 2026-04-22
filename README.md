@@ -25,6 +25,25 @@ This repository should be read in the following order:
 Historical phase notes remain in the repository for traceability, but they are
 not the active product or machine description.
 
+## Canonical Lineage
+
+Anathema-Breaker is the **sealed synthesis of Gate and Shield** into a resolution core.
+It is neither the upstream law nor the downstream execution membrane.
+
+```
+SYF-Core  →  SYF-Gate  →  SYF-Shield  →  Anathema-Breaker  →  SLIME-Core
+  theory     admission     capacity        resolution core      membrane
+```
+
+- **SYF-Core** — upstream thermodynamic theory (`R = (F × E) / K`)
+- **SYF-Gate** — structural admissibility primitive
+- **SYF-Shield** — capacity, progression, and irreversibility primitive
+- **Anathema-Breaker (this repo)** — sealed synthesis of Gate + Shield
+- **SLIME-Core** — canonical execution membrane derived from AB
+
+**AB is the heart.** **SLIME-Core is the canonical execution membrane built from it.**
+SLIME-Core is a downstream derivation, not an upstream dependency.
+
 ## Historical Documents
 
 - `README_PHASE5.md` - archived Phase 5.1 structure-only note

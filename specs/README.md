@@ -92,19 +92,30 @@ This separation ensures that:
 
 ---
 
-## Relation to SYF, SLIME, and Shield
+## Canonical Lineage
 
-Anathema-Breaker is built on the following canonical stack:
+Anathema-Breaker sits in the following canonical chronology:
 
-- **SYF** — provides the invariant law-layer (thermodynamic authority)
-- **SLIME** — defines the enclosing milieu that removes hooks and feedback paths
-- **SYF-Shield** — declares the fixed actuation topology
+1. **SYF-Core** — upstream thermodynamic theory (`R = (F × E) / K`)
+2. **SYF-Gate** — structural admissibility primitive (identity ≠ capacity)
+3. **SYF-Shield** — capacity, progression, and irreversibility primitive
+4. **Anathema-Breaker** — sealed synthesis of Gate and Shield into a resolution core
+5. **SLIME-Core** — canonical execution membrane built from that core
 
-Anathema-Breaker is the **integration boundary** where these laws become operational at the point of effect.
+Said explicitly:
 
-It does not extend them.  
-It does not reinterpret them.  
-It **contains** them.
+- **Gate** determines whether progression may begin.
+- **Shield** governs capacity, progression, and irreversibility once engagement has begun.
+- Their sealed synthesis becomes **Anathema-Breaker**.
+- **SLIME-Core** is the executable binary membrane that carries AB to the point of effect.
+
+**AB is the heart.** **SLIME-Core is the canonical execution membrane derived from it.**
+
+Anathema-Breaker does not extend upstream law.  
+It does not reinterpret Gate or Shield.  
+It **composes** them into a sealed one-way machine boundary.
+
+SLIME-Core is not upstream of Anathema-Breaker. It is a downstream derivation.
 
 ---
 
