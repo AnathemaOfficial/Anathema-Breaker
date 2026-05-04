@@ -5,6 +5,23 @@
 **Current status:** `Phase 7.0 / AB-S`  
 **Scope:** formally sealed software machine with representational impossibility
 
+## Public Engine Layer
+
+Anathema-Breaker is part of the **public canonical engine layer** of the
+CoreXalt ecosystem:
+
+```text
+SYF-Core -> SYF-Gate -> SYF-Shield -> Anathema-Breaker -> SLIME-Core
+```
+
+This layer remains open so the law, lineage, and audit surface are inspectable.
+Applied systems built from these engines, including SAFA, SLIME-Enterprise, and
+SLIME-APP, are controlled product editions. Enterprise or government deployments
+are expected to be sealed, signed, SBOM-backed, and distributed separately from
+the public engine layer.
+
+---
+
 Anathema-Breaker is no longer a Phase 5.1 structure-only skeleton.
 The active crate now exposes the sealed `AB-S` software tier built from the
 Phase 6.2 PoM core and sealed in Phase 7.0.
